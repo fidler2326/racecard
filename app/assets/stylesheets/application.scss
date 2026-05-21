@@ -1,0 +1,158 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: #003777;
+  a {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  ul {
+    list-style: none;
+    display: flex;
+    li {
+      margin: 0 30px 0 0;
+      position: relative;
+      &:after {
+        content: "|";
+        color: rgba(#fff,0.25);
+        position: absolute;
+        top: 50%;
+        right: -15px;
+        transform: translate(0,-50%);
+      }
+      &:last-child {
+        margin: 0;
+        &:after {
+          display: none;
+        }
+      }
+      a {
+        font-size: 14px;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.container {
+  padding: 15px;
+}
+
+.page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 15px 0;
+  padding: 0 0 15px 0;
+  border-bottom: 1px solid #ccc;
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+  }
+}
+
+.btn,
+.form-actions input {
+  display: inline-flex;
+  padding: 15px;
+  border: 0;
+  outline: 0;
+  background-color: #003777;
+  border-radius: 5px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  label {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  input {
+    max-width: 260px;
+    margin: 0 0 15px 0;
+    padding: 10px;
+    background-color: #f5f5f5;
+    outline: 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    &:focus,
+    &:active {
+      border: 1px solid #003777;
+    }
+  }
+}
+
+.form-actions {
+  margin: 15px 0 0 0;
+  padding: 15px 0 0 0;
+  border-top: 1px solid #ccc;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  tr {
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #003777;
+      color: #fff;
+    }
+    td {
+      border: 1px solid #ccc;
+      .actions {
+        display: flex;
+        a, button {
+          display: inline-flex;
+          margin: 0 5px 0 0;
+          padding: 10px;
+          background-color: transparent;
+          outline: 0;
+          border: 1px solid #003777;
+          border-radius: 5px;
+          color: #000;
+          font-size: 14px;
+          text-decoration: none;
+          cursor: pointer;
+          &:hover {
+            background-color: rgba(#003777,0.10);
+          }
+        }
+      }
+    }
+    &:nth-child(even) td {
+      background-color: #f5f5f5;
+    }
+  }
+}

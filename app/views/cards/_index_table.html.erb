@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <% @cards.each do |card| %>
+    <tr>
+      <td><%= card.name %></td>
+      <td>
+        <div class="actions">
+          <%= link_to "View Card", card_path(card) %>
+          <%= link_to "Edit Card", edit_card_path(card) %>
+          <%= button_to "Delete Card", card, method: :delete %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>
