@@ -1,39 +1,95 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= content_for(:title) || "Racecard" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Racecard">
-    <meta name="mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title><%= content_for(:title) || "Racecard" %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Racecard">
+  <meta name="mobile-web-app-capable" content="yes">
 
-    <%= yield :head %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+  <%= yield :head %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+  <%# Enable PWA manifest for installable apps. Make sure to enable in config/routes.rb too. %>
+  <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app %>
-  </head>
+  <link rel="icon" href="/icon.png" type="image/png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.png">
 
-  <body>
-    <header>
-      <%= link_to "Racecards", root_path %>
-      <ul>
-        <li><%= link_to "Cards", cards_path %></li>
-        <li><%= link_to "Races", races_path %></li>
-        <li><%= link_to "Runners", runners_path %></li>
-        <li><%= link_to "Pools", pools_path %></li>
-      </ul>
-    </header>
-    <div class="container">
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%#= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+</head>
+
+<body class="bg-light min-vh-100 d-flex flex-column">
+<header class="bg-white border-bottom shadow-sm sticky-top">
+  <div class="container py-3">
+    <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
+      <div>
+        <%= link_to "Racecard", root_path, class: "fs-3 fw-bold text-decoration-none text-dark" %>
+        <div class="text-muted small">
+<!--          Race cards, runners, pools and results-->
+        </div>
+      </div>
+
+      <nav aria-label="Main navigation">
+        <ul class="nav nav-pills gap-2">
+          <li class="nav-item">
+            <%= link_to "Cards", cards_path, class: "nav-link px-3 #{current_page?(cards_path) ? 'active' : 'text-dark'}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Races", races_path, class: "nav-link px-3 #{current_page?(races_path) ? 'active' : 'text-dark'}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Runners", runners_path, class: "nav-link px-3 #{current_page?(runners_path) ? 'active' : 'text-dark'}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Pools", pools_path, class: "nav-link px-3 #{current_page?(pools_path) ? 'active' : 'text-dark'}" %>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="container my-4 flex-grow-1">
+  <% flash.each do |type, message| %>
+    <% bootstrap_class =
+         case type.to_sym
+         when :notice
+           "alert-success"
+         when :alert, :error
+           "alert-danger"
+         else
+           "alert-info"
+         end
+    %>
+
+    <div class="alert <%= bootstrap_class %> alert-dismissible fade show shadow-sm" role="alert">
+      <%= message %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
+  <div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-4">
       <%= yield %>
     </div>
-  </body>
+  </div>
+</main>
+
+<footer class="bg-white border-top py-3 mt-auto">
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-muted small">
+    <div>
+      &copy; <%= Time.current.year %> Racecard
+    </div>
+
+    <div>
+      Built with Rails
+    </div>
+  </div>
+</footer>
+</body>
 </html>
