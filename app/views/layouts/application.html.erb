@@ -67,9 +67,24 @@
          end
     %>
 
+<!--    <div class="alert <%#= bootstrap_class %> alert-dismissible fade show shadow-sm" role="alert">-->
+      <%#= message %>
+<!--      <button type="button" class="btn-close" onclick="this.parentElement.remove()" aria-label="Close"></button>-->
+<!--    </div>-->
+
     <div class="alert <%= bootstrap_class %> alert-dismissible fade show shadow-sm" role="alert">
-      <%= message %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <% if message.is_a?(Array) %>
+        <strong>Please fix the following errors:</strong>
+        <ul class="alert-list">
+          <% message.each do |error_message| %>
+            <li><%= error_message %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <%= message %>
+      <% end %>
+
+      <button type="button" class="btn-close" onclick="this.parentElement.remove()" aria-label="Close"></button>
     </div>
   <% end %>
 

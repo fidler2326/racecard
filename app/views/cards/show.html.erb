@@ -1,11 +1,21 @@
 <div class="page-heading">
-  <h1><%= @card.name %></h1>
   <div>
     <%= link_to "View All Cards", cards_path, class: "btn" %>
     <%= link_to "Edit Card", edit_card_path(@card), class: "btn" %>
   </div>
 </div>
 
-<h2>Races</h2>
-<p>List card.races here and link to view race</p>
-<%= link_to "Add Races", new_race_path %>
+<section class="races-panel">
+  <div class="races-panel__intro">
+    <div>
+      <h2>Races</h2>
+      <p>List card.races here and link to view race</p>
+    </div>
+
+    <%= link_to "Add Races", new_card_race_path(@card), class: "btn" %>
+  </div>
+
+  <div id="races" class="races-panel__table">
+    <%= render "races/index_table" %>
+  </div>
+</section>

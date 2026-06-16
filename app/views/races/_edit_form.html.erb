@@ -1,14 +1,10 @@
-<%= form_for([@card, @race]) do |f| %>
+<%= form_for(@race) do |f| %>
   <!--
   TODO:
     - add validation for each field
     - add option to create runners at the same time as the race
         - add validation for the runner fields
-  -->
-  <p>
-    <%= link_to 'Back', card_races_path(@card) %> |
-    Race for <%= @card.name %>
-  </p>
+      -->
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name %>

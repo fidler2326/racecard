@@ -41,11 +41,18 @@ class CardsController < ApplicationController
 
   def show
     @card = Card.find(params[:id])
+    @races = @card.races
   end
 
+  # properly delete card to all child records
   def destroy
     @card = Card.find(params[:id])
-    @card.destroy
+
+    ActiveRecord::Base.transaction do
+      @card.races.destroy_all
+      @card.destroy!
+    end
+
     respond_to do |format|
       format.html { redirect_to cards_path, notice: "Card was successfully deleted." }
       format.json { head :no_content }
@@ -53,6 +60,7 @@ class CardsController < ApplicationController
   end
 
   private
+
   def card_params
     params.require(:card).permit(:name)
   end
