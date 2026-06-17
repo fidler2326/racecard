@@ -1,1 +1,51 @@
-TODO: List all runners grouped by card/race_id with option to view/edit/delete a runner
+<% runners = local_assigns.fetch(:race_runners, @runners).select(&:persisted?) %>
+
+<% if runners.any? %>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Number</th>
+      <th>Program Number</th>
+      <th>Trainer</th>
+      <th>Jockey</th>
+      <th>Odds</th>
+      <th>Finish Position</th>
+      <th>Finished</th>
+      <th>Scratched</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% runners.each do |runner| %>
+      <tr>
+        <td><%= runner.name %></td>
+        <td><%= runner.number %></td>
+        <td><%= runner.program_number %></td>
+        <td><%= runner.trainer %></td>
+        <td><%= runner.jockey %></td>
+        <td><%= runner.odds %></td>
+        <td><%= runner.finish_position %></td>
+        <td><%= runner.finished %></td>
+        <td><%= runner.scratched %></td>
+        <td>
+          <div class="actions">
+            <%= button_to "Edit",
+                          edit_race_runner_path(runner.race, runner),
+                          method: :get,
+                          class: "action-button" %>
+
+            <%= button_to "Delete",
+                          race_runner_path(runner.race, runner),
+                          method: :delete,
+                          class: "action-button" %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No runners have been added yet.</p>
+<% end %>

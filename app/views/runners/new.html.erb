@@ -1,8 +1,30 @@
 <div class="page-heading">
   <h1>New Runner</h1>
   <div>
-    <%= link_to "View All Runners", runners_path, class: "btn" %>
+    <%= link_to "View All Runners", race_runners_path(@race), class: "btn" %>
   </div>
 </div>
 
-<%= render "form" %>
+<div class="races-panel">
+  <div class="races-panel__intro">
+    <div>
+      <h2>Existing Runners</h2>
+      <p>Runners already added to this race.</p>
+    </div>
+  </div>
+
+  <div class="races-panel__table">
+    <%= render "runners/index_table", race_runners: @race_runners %>
+  </div>
+</div>
+
+<div class="races-panel">
+  <div class="races-panel__intro">
+    <div>
+      <h2>Add Runners</h2>
+      <p>Enter one or more runners for this race.</p>
+    </div>
+  </div>
+
+  <%= render "form" %>
+</div>

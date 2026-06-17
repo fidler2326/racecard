@@ -1,8 +1,8 @@
 <div class="page-heading">
   <h1>Edit Runner</h1>
   <div>
-    <%= link_to "View All Runners", runners_path, class: "btn" %>
+    <%= link_to "View All Runners", new_race_runner_path(@race), class: "btn" %>
   </div>
 </div>
 
-<%= render "form" %>
+<%= render "edit_form" %>

@@ -2,11 +2,9 @@ class RacesController < ApplicationController
 
   # order races by number in ascending order
   def index
-    @card = Card.where(id: params[:card_id]).first
-    if @card.nil?
+    @races = Race.joins(:card).where(card: { race_date: Date.today }).order(:card_id, :number)
+    if @races.empty?
       redirect_to root_path, alert: "Card not found."
-    else
-      @races = @card.races.order(number: :asc)
     end
   end
 

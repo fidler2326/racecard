@@ -1,9 +1,16 @@
-<h3><%= @card.name %></h3>
+<% if @card.nil? %>
+  <h3>Todays Races</h3>
+<% else %>
+  <h3><%= @card.name %></h3>
+<% end %>
 
 <% if @races.any? %>
   <table class="table">
     <thead>
     <tr>
+      <% if @card.nil? %>
+        <th>Card</th>
+      <% end %>
       <th>Number</th>
       <th>Name</th>
       <th>Time</th>
@@ -14,6 +21,9 @@
     <tbody>
     <% @races.each do |race| %>
       <tr>
+        <% if @card.nil? %>
+          <th><%= race.card.name %></th>
+        <% end %>
         <td><%= race.number %></td>
         <td><%= race.name %></td>
         <td><%= race.time&.strftime("%H:%M") %></td>
@@ -27,6 +37,10 @@
                           class: "action-button" %>
             <%= button_to "Edit",
                           edit_race_path(race),
+                          method: :get,
+                          class: "action-button" %>
+            <%= button_to "Add Runners",
+                          new_race_runner_path(race),
                           method: :get,
                           class: "action-button" %>
             <%= button_to "Delete",
