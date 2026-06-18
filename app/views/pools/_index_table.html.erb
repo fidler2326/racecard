@@ -1,1 +1,61 @@
-TODO: List all pools grouped by card/race_id with option to view/edit/delete a pool
+<% if @card.nil? %>
+  <h3>Todays Pools</h3>
+<% else %>
+  <h3><%= @card.name %></h3>
+<% end %>
+
+<% if @pools.any? %>
+  <table class="table races-table">
+    <thead>
+    <tr>
+      <% if @card.nil? %>
+        <th>Card</th>
+      <% end %>
+      <th>Pool Code</th>
+      <th>Tote</th>
+      <th>Racer</th>
+      <th>Currency</th>
+      <th>Status</th>
+      <th>Odds</th>
+      <th>Total</th>
+      <th class="actions-column">Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @pools.each do |pool| %>
+      <tr>
+        <% if @card.nil? %>
+          <th><%= pool.card.name %></th>
+        <% end %>
+        <td><%= pool.pool_code %></td>
+        <td><%= pool.tote %></td>
+        <td><%= pool.first_race_number %></td>
+        <td><%= pool.currency %></td>
+        <td><%= pool.status %></td>
+        <td><%= pool.odds %></td>
+        <td><%= pool.total %></td>
+        <td class="actions-column">
+          <div class="actions">
+            <%= button_to "View",
+                          pool_path(pool),
+                          method: :get,
+                          class: "action-button" %>
+            <%= button_to "Edit",
+                          edit_pool_path(pool),
+                          method: :get,
+                          class: "action-button" %>
+            <%= button_to "Delete",
+                          pool_path(pool),
+                          method: :delete,
+                          form: { onsubmit: "return confirm('Are you sure you want to delete this pool?')" },
+                          class: "action-button" %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No races have been added yet.</p>
+<% end %>

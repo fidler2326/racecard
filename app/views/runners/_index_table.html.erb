@@ -1,1 +1,100 @@
-TODO: List all runners grouped by card/race_id with option to view/edit/delete a runner
+<% runners = local_assigns.fetch(:race_runners, @runners).select(&:persisted?) %>
+
+<% if runners.any? %>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Number</th>
+      <th>Program Number</th>
+      <th>Trainer</th>
+      <th>Jockey</th>
+      <th>Odds</th>
+      <th>Finish Position</th>
+      <th>Finished</th>
+      <th>Scratched</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% runners.each do |runner| %>
+      <tr>
+        <td><%= runner.name %></td>
+        <td><%= runner.number %></td>
+        <td><%= runner.program_number %></td>
+        <td><%= runner.trainer %></td>
+        <td><%= runner.jockey %></td>
+        <td><%= runner.odds %></td>
+        <td><%= runner.finish_position %></td>
+        <td><%= runner.finished %></td>
+        <td><%= runner.scratched %></td>
+        <td>
+          <div class="actions">
+            <button type="button"
+                    class="action-button runner-expand-button"
+                    data-runner-details-target="runner-details-<%= runner.id %>"
+                    aria-expanded="false">
+              Expand
+            </button>
+
+            <%= button_to "Edit",
+                          edit_race_runner_path(runner.race, runner),
+                          method: :get,
+                          class: "action-button" %>
+
+            <%= button_to "Delete",
+                          race_runner_path(runner.race, runner),
+                          method: :delete,
+                          class: "action-button" %>
+          </div>
+        </td>
+      </tr>
+
+      <tr id="runner-details-<%= runner.id %>" class="runner-details-row" hidden>
+        <td colspan="10">
+          <div class="runner-details-panel">
+            <div class="runner-details-section">
+              <h4>Form</h4>
+              <p><%= runner.form.presence || "No form recorded." %></p>
+            </div>
+
+            <div class="runner-details-section">
+              <h4>Additional Data</h4>
+              <pre><%= runner.additional_data.presence || "No additional data recorded." %></pre>
+            </div>
+
+            <div class="runner-details-section">
+              <h4>Past Performances</h4>
+              <pre><%= runner.past_performances.presence || "No past performances recorded." %></pre>
+            </div>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          document.querySelectorAll(".runner-expand-button").forEach(function (button) {
+              button.addEventListener("click", function () {
+                  const detailsRowId = button.dataset.runnerDetailsTarget;
+                  const detailsRow = document.getElementById(detailsRowId);
+
+                  if (!detailsRow) {
+                      return;
+                  }
+
+                  const isExpanded = button.getAttribute("aria-expanded") === "true";
+
+                  detailsRow.hidden = isExpanded;
+                  button.setAttribute("aria-expanded", String(!isExpanded));
+                  button.textContent = isExpanded ? "Expand" : "Collapse";
+              });
+          });
+      });
+  </script>
+<% else %>
+  <p>No runners have been added yet.</p>
+<% end %>

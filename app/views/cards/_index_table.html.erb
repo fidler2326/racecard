@@ -1,13 +1,17 @@
 <table>
   <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-    </tr>
+  <tr>
+    <th>Name</th>
+    <th>Course</th>
+    <th>Date</th>
+    <th>Actions</th>
+  </tr>
   </thead>
   <% @cards.each do |card| %>
     <tr>
       <td><%= card.name %></td>
+      <td><%= card.course.to_s.downcase.capitalize %></td>
+      <td><%= card.race_date %></td>
       <td>
         <div class="actions">
           <%= link_to "View Card", card_path(card) %>

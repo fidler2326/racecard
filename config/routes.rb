@@ -13,7 +13,16 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "cards#index"
   resources :cards
+  resources :cards do
+    resources :races
+    resources :pools
+  end
+
   resources :races
+  resources :races do
+    resources :runners
+  end
+
   resources :runners
   resources :pools
 end

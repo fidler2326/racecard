@@ -1,0 +1,26 @@
+<%= form_for(@race) do |f| %>
+  <!--
+  TODO:
+    - add validation for each field
+    - add option to create runners at the same time as the race
+        - add validation for the runner fields
+      -->
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :number %>
+    <%= f.number_field :number, min: 1, step: 1 %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :time %>
+    <%= f.time_field :time %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit %>
+  </div>
+<% end %>

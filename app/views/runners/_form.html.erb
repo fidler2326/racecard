@@ -1,1 +1,113 @@
-TODO: Add form to create/update runners for a card/race_id
+<%= form_with url: race_runners_path(@race), method: :post, local: true, class: "runners-form" do %>
+  <div id="runners-fields" class="runners-fields">
+    <% @runners.each_with_index do |runner, index| %>
+      <fieldset class="runner-fields">
+        <div class="runner-fields__header">
+          <legend>Runner <%= index + 1 %></legend>
+          <button type="button" class="action-button remove-runner-button">Remove runner</button>
+        </div>
+
+        <div class="runner-fields__grid">
+          <div class="form-group">
+            <%= label_tag "runners_#{index}_name", "Name" %>
+            <%= text_field_tag "runners[][name]", runner.name, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag "runners_#{index}_number", "Number" %>
+            <%= number_field_tag "runners[][number]", runner.number, min: 1, step: 1, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag "runners_#{index}_program_number", "Program number" %>
+            <%= text_field_tag "runners[][program_number]", runner.program_number, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag "runners_#{index}_trainer", "Trainer" %>
+            <%= text_field_tag "runners[][trainer]", runner.trainer, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag "runners_#{index}_jockey", "Jockey" %>
+            <%= text_field_tag "runners[][jockey]", runner.jockey, class: "form-control" %>
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+
+  <div class="runner-form-actions">
+    <button type="button" id="add-runner-button" class="btn">Add another runner</button>
+    <%= submit_tag "Create runners", class: "btn" %>
+  </div>
+<% end %>
+
+<template id="runner-fields-template">
+  <fieldset class="runner-fields">
+    <div class="runner-fields__header">
+      <legend>Runner</legend>
+      <button type="button" class="action-button remove-runner-button">Remove runner</button>
+    </div>
+
+    <div class="runner-fields__grid">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="runners[][name]" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Number</label>
+        <input type="number" name="runners[][number]" min="1" step="1" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Program number</label>
+        <input type="text" name="runners[][program_number]" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Trainer</label>
+        <input type="text" name="runners[][trainer]" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Jockey</label>
+        <input type="text" name="runners[][jockey]" class="form-control">
+      </div>
+    </div>
+  </fieldset>
+</template>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const runnersFields = document.getElementById("runners-fields");
+        const addRunnerButton = document.getElementById("add-runner-button");
+        const template = document.getElementById("runner-fields-template");
+
+        addRunnerButton.addEventListener("click", function () {
+            const newFields = template.content.cloneNode(true);
+            runnersFields.appendChild(newFields);
+            updateRunnerLegends();
+        });
+
+        runnersFields.addEventListener("click", function (event) {
+            if (!event.target.classList.contains("remove-runner-button")) {
+                return;
+            }
+
+            const runnerFields = event.target.closest(".runner-fields");
+
+            if (document.querySelectorAll(".runner-fields").length > 1) {
+                runnerFields.remove();
+                updateRunnerLegends();
+            }
+        });
+
+        function updateRunnerLegends() {
+            document.querySelectorAll(".runner-fields legend").forEach(function (legend, index) {
+                legend.textContent = `Runner ${index + 1}`;
+            });
+        }
+    });
+</script>

@@ -1,1 +1,29 @@
-TODO: Add form to create/update pools for a card/race_id
+<%= form_with url: card_pools_path(@card), method: :post, local: true, class: "pools-form" do %>
+  <% card_has_races = @card.races.any? %>
+
+  <% unless card_has_races %>
+    <div class="alert alert-info">
+      Add at least one race to this card before creating pools.
+    </div>
+  <% end %>
+
+  <div class="pool-bet-types">
+    <% Pool::BET_TYPES.each do |bet_type| %>
+      <% pool_already_exists = @unique_pool_codes.include?(bet_type) %>
+
+      <div class="pool-bet-type-option">
+        <%= check_box_tag "bet_types[]",
+                          bet_type,
+                          pool_already_exists,
+                          id: "bet_type_#{bet_type.parameterize}",
+                          disabled: pool_already_exists || !card_has_races %>
+
+        <%= label_tag "bet_type_#{bet_type.parameterize}", bet_type %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="pool-form-actions">
+    <%= submit_tag "Add Pools", class: "btn", disabled: !card_has_races %>
+  </div>
+<% end %>
