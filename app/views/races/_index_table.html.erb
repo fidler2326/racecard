@@ -5,7 +5,7 @@
 <% end %>
 
 <% if @races.any? %>
-  <table class="table">
+  <table class="table races-table">
     <thead>
     <tr>
       <% if @card.nil? %>
@@ -14,7 +14,7 @@
       <th>Number</th>
       <th>Name</th>
       <th>Time</th>
-      <th>Actions</th>
+      <th class="actions-column">Actions</th>
     </tr>
     </thead>
 
@@ -27,14 +27,15 @@
         <td><%= race.number %></td>
         <td><%= race.name %></td>
         <td><%= race.time&.strftime("%H:%M") %></td>
-        <td>
-          <!-- TODO: view should navigate to the race show page, listing all the runners -->
-          <!-- TODO: add runners relation -->
+        <td class="actions-column">
           <div class="actions">
-            <%= button_to "View",
-                          race_path(race),
-                          method: :get,
-                          class: "action-button" %>
+            <button type="button"
+                    class="action-button race-expand-button"
+                    data-race-runners-target="race-runners-<%= race.id %>"
+                    aria-expanded="false">
+              Expand
+            </button>
+
             <%= button_to "Edit",
                           edit_race_path(race),
                           method: :get,
@@ -42,18 +43,92 @@
             <%= button_to "Add Runners",
                           new_race_runner_path(race),
                           method: :get,
-                          class: "action-button" %>
+                          class: "action-button action-button--wide" %>
             <%= button_to "Delete",
                           race_path(race),
                           method: :delete,
                           form: { onsubmit: "return confirm('Are you sure you want to delete this race?')" },
                           class: "action-button" %>
-          </div>      <!-- TODO: add a delete button -->
+          </div>
+        </td>
+      </tr>
+
+      <tr id="race-runners-<%= race.id %>" class="race-runners-row" hidden>
+        <td colspan="<%= @card.nil? ? 5 : 4 %>">
+          <div class="race-runners-panel">
+            <h4>Runners</h4>
+
+            <% race_runners = race.runners.order(:number) %>
+
+            <% if race_runners.any? %>
+              <table class="race-runners-table">
+                <thead>
+                <tr>
+                  <th>Number</th>
+                  <th>Program Number</th>
+                  <th>Name</th>
+                  <th>Trainer</th>
+                  <th>Jockey</th>
+                  <th>Odds</th>
+                  <th>Finished</th>
+                  <th>Scratched</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% race_runners.each do |runner| %>
+                  <tr class="clickable-runner-row" data-runner-edit-url="<%= edit_race_runner_path(runner.race, runner) %>">
+                    <td><%= runner.number %></td>
+                    <td><%= runner.program_number %></td>
+                    <td><%= runner.name %></td>
+                    <td><%= runner.trainer %></td>
+                    <td><%= runner.jockey %></td>
+                    <td><%= runner.odds %></td>
+                    <td><%= runner.finished %></td>
+                    <td><%= runner.scratched %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+            <% else %>
+              <p>No runners have been added to this race yet.</p>
+            <% end %>
+          </div>
         </td>
       </tr>
     <% end %>
     </tbody>
   </table>
+
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          document.querySelectorAll(".race-expand-button").forEach(function (button) {
+              button.addEventListener("click", function () {
+                  const runnersRowId = button.dataset.raceRunnersTarget;
+                  const runnersRow = document.getElementById(runnersRowId);
+
+                  if (!runnersRow) {
+                      return;
+                  }
+
+                  const isExpanded = button.getAttribute("aria-expanded") === "true";
+
+                  runnersRow.hidden = isExpanded;
+                  button.setAttribute("aria-expanded", String(!isExpanded));
+                  button.textContent = isExpanded ? "Expand" : "Collapse";
+              });
+          });
+
+          document.querySelectorAll(".clickable-runner-row").forEach(function (row) {
+              row.addEventListener("click", function () {
+                  const editUrl = row.dataset.runnerEditUrl;
+
+                  if (editUrl) {
+                      window.location.href = editUrl;
+                  }
+              });
+          });
+      });
+  </script>
 <% else %>
   <p>No races have been added yet.</p>
 <% end %>

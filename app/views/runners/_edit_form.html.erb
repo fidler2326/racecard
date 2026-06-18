@@ -1,47 +1,72 @@
 <%= form_for(@runner) do |f| %>
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+  <div class="runner-edit-form-grid">
+    <div class="runner-edit-form-column">
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
 
-  <div class="form-group">
-    <%= f.label :number %>
-    <%= f.number_field :number, min: 1, step: 1, readonly: true %>
-  </div>
+      <div class="form-group">
+        <%= f.label :number %>
+        <%= f.number_field :number, min: 1, step: 1, readonly: true %>
+      </div>
 
-  <div class="form-group">
-    <%= f.label :program_number %>
-    <%= f.text_field :program_number %>
-  </div>
+      <div class="form-group">
+        <%= f.label :program_number %>
+        <%= f.text_field :program_number %>
+      </div>
 
-  <div class="form-group">
-    <%= f.label :trainer %>
-    <%= f.text_field :trainer %>
-  </div>
+      <div class="form-group">
+        <%= f.label :trainer %>
+        <%= f.text_field :trainer %>
+      </div>
 
-  <div class="form-group">
-    <%= f.label :jockey %>
-    <%= f.text_field :jockey %>
-  </div>
+      <div class="form-group">
+        <%= f.label :jockey %>
+        <%= f.text_field :jockey %>
+      </div>
 
-  <div class="form-group">
-    <%= f.label :finish_position %>
-    <%= f.number_field :finish_position, min: 1, step: 1 %>
-  </div>
+      <div class="form-group">
+        <%= f.label :finish_position %>
+        <%= f.number_field :finish_position, min: 1, step: 1 %>
+      </div>
 
-  <div class="form-group">
-    <%= f.label :finished %>
-    <%= f.check_box :finished %>
-  </div>
+      <div class="form-group form-group--checkbox">
+        <%= f.label :finished %>
+        <%= f.check_box :finished %>
+      </div>
 
-  <div class="form-group">
-    <%= f.label :scratched %>
-    <%= f.check_box :scratched %>
-  </div>
+      <div class="form-group form-group--checkbox">
+        <%= f.label :scratched %>
+        <%= f.check_box :scratched %>
+      </div>
 
-  <div class="form-group">
-    <%= f.label :odds %>
-    <%= f.number_field :odds, step: 0.00000001, class: "form-control" %>
+      <div class="form-group">
+        <%= f.label :odds %>
+        <%= f.number_field :odds, step: 0.00000001, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="runner-edit-form-column runner-edit-form-column--wide">
+      <div class="form-group">
+        <%= f.label :form %>
+        <%= f.text_field :form, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :additional_data %>
+        <%= f.text_area :additional_data,
+                        rows: 12,
+                        class: "form-control runner-large-textarea" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :past_performances %>
+        <%= f.text_area :past_performances,
+                        rows: 12,
+                        class: "form-control runner-large-textarea" %>
+      </div>
+    </div>
   </div>
 
   <div class="form-actions">

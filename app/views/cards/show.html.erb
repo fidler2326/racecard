@@ -1,4 +1,6 @@
 <div class="page-heading">
+  <% card_has_pools = @card.pools.any? %>
+
   <div>
     <%= link_to "View All Cards", cards_path, class: "btn" %>
     <%= link_to "Edit Card", edit_card_path(@card), class: "btn" %>
@@ -12,10 +14,25 @@
       <p>List card.races here and link to view race</p>
     </div>
 
-    <%= link_to "Add Races", new_card_race_path(@card), class: "btn" %>
+    <% unless card_has_pools %>
+      <%= link_to "Add Races", new_card_race_path(@card), class: "btn" %>
+    <% end %>
   </div>
 
   <div id="races" class="races-panel__table">
     <%= render "races/index_table" %>
+  </div>
+</section>
+
+<section class="pools-panel">
+  <div class="pools-panel__intro">
+    <div>
+      <h2>Pools</h2>
+      <p>Bet-types to enable on this card</p>
+    </div>
+  </div>
+
+  <div id="pools" class="pools-panel__table">
+    <%= render "pools/form" %>
   </div>
 </section>

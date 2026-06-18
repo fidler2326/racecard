@@ -425,3 +425,354 @@ table {
     flex-direction: column;
   }
 }
+
+
+
+
+.pools-panel {
+  margin-top: 20px;
+  padding: 16px;
+  background-color: #fff;
+  border: 1px solid #111;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pools-panel__intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 24px;
+  background-color: #fff;
+  border-bottom: 1px solid #111;
+
+  h2 {
+    margin: 0 0 6px 0;
+    color: #111;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.2;
+  }
+
+  p {
+    margin: 0;
+    color: #444;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+}
+
+.pools-panel__table {
+  padding-top: 16px;
+  background-color: #fff;
+
+  table {
+    margin: 0;
+    border: 0;
+
+    th:first-child,
+    td:first-child {
+      border-left: 0;
+    }
+
+    th:last-child,
+    td:last-child {
+      border-right: 0;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+  }
+}
+
+.pools-panel__table {
+  padding-top: 16px;
+  background-color: #fff;
+
+  table {
+    margin: 0;
+    border: 0;
+
+    th:first-child,
+    td:first-child {
+      border-left: 0;
+    }
+
+    th:last-child,
+    td:last-child {
+      border-right: 0;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+  }
+}
+
+.pools-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pool-bet-types {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+
+.pool-bet-type-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  background-color: #ffffff;
+}
+
+.pool-bet-type-option input {
+  margin: 0;
+}
+
+.pool-bet-type-option label {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pool-form-actions {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 576px) {
+  .pool-bet-types {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+
+.runner-details-row td {
+  padding: 0;
+  background-color: #eaf6ff;
+  border-top: 0;
+}
+
+.runner-details-panel {
+  margin: 0;
+  padding: 18px 22px 18px 34px;
+  background-color: #eaf6ff;
+  border-left: 4px solid #4dabf7;
+}
+
+.runner-details-section {
+  margin-bottom: 16px;
+}
+
+.runner-details-section:last-child {
+  margin-bottom: 0;
+}
+
+.runner-details-section h4 {
+  margin: 0 0 6px 0;
+  color: #003777;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.runner-details-section p,
+.runner-details-section pre {
+  margin: 0;
+  color: #1f2933;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.runner-details-section pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(77, 171, 247, 0.35);
+  border-radius: 6px;
+}
+
+.races-table {
+  .actions-column {
+    width: 1%;
+    white-space: nowrap;
+  }
+
+  .actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+
+  .actions form {
+    display: inline-flex;
+    margin: 0;
+  }
+
+  .action-button {
+    width: auto;
+    min-width: 80px;
+  }
+
+  .action-button--wide {
+    min-width: 110px;
+  }
+}
+
+.runner-edit-form-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) minmax(420px, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.runner-edit-form-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.runner-edit-form-column--wide {
+  min-width: 0;
+}
+
+.runner-edit-form-grid .form-group input:not([type="checkbox"]),
+.runner-edit-form-grid .form-group textarea {
+  width: 100%;
+  max-width: none;
+}
+
+.runner-edit-form-grid .form-group--checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.runner-edit-form-grid .form-group--checkbox label {
+  margin: 0;
+  line-height: 1;
+}
+
+.runner-edit-form-grid .form-group--checkbox input[type="checkbox"] {
+  width: auto;
+  max-width: none;
+  min-width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.runner-edit-form-grid .form-group textarea.runner-large-textarea {
+  min-height: 260px;
+  resize: vertical;
+  font-family: monospace;
+  line-height: 1.45;
+}
+
+.form-group--checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-group--checkbox label {
+  margin: 0;
+}
+
+.form-group--checkbox input {
+  width: auto;
+  max-width: none;
+  margin: 0;
+}
+
+@media (max-width: 992px) {
+  .runner-edit-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.runner-details-section pre {
+  height: 260px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(77, 171, 247, 0.35);
+  border-radius: 6px;
+  font-family: monospace;
+  line-height: 1.45;
+}
+
+.race-runners-row td {
+  padding: 0;
+  background-color: #eaf6ff;
+  border-top: 0;
+}
+
+.race-runners-panel {
+  margin: 0;
+  padding: 18px 22px 18px 34px;
+  background-color: #eaf6ff;
+  border-left: 4px solid #4dabf7;
+}
+
+.race-runners-panel h4 {
+  margin: 0 0 12px 0;
+  color: #003777;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.race-runners-panel p {
+  margin: 0;
+  color: #1f2933;
+  font-size: 14px;
+}
+
+.race-runners-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+}
+
+.race-runners-table th,
+.race-runners-table td {
+  padding: 8px 10px;
+  border: 1px solid rgba(77, 171, 247, 0.35);
+  font-size: 14px;
+}
+
+.race-runners-table th {
+  background-color: #d8efff;
+  color: #003777;
+  font-weight: 700;
+}
+
+.race-runners-table tr:nth-child(even) td {
+  background-color: #f6fbff;
+}
+
+.clickable-runner-row {
+  cursor: pointer;
+}
+
+.clickable-runner-row:hover td {
+  background-color: #d8efff;
+}
+

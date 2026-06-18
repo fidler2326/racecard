@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_17_160827) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_18_125029) do
   create_table "cards", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "course", null: false
     t.datetime "created_at", null: false
     t.string "name"
     t.date "race_date", default: -> { "curdate()" }, null: false
@@ -49,14 +50,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_17_160827) do
   end
 
   create_table "runners", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.text "additional_data"
     t.integer "card_id"
     t.datetime "created_at", null: false
     t.integer "finish_position"
     t.boolean "finished", default: false
+    t.string "form"
     t.string "jockey"
     t.string "name"
     t.integer "number"
     t.decimal "odds", precision: 18, scale: 8, default: "0.0"
+    t.text "past_performances"
     t.string "program_number"
     t.integer "race_id"
     t.boolean "scratched", default: false

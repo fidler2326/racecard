@@ -4,12 +4,11 @@ class RacesController < ApplicationController
   def index
     @races = Race.joins(:card).where(card: { race_date: Date.today }).order(:card_id, :number)
     if @races.empty?
-      redirect_to root_path, alert: "Card not found."
+      redirect_to root_path, alert: "No cards for today."
     end
   end
 
   def new
-    puts params
     @card = Card.find(params[:card_id])
     @race = Race.new
   end
@@ -17,6 +16,11 @@ class RacesController < ApplicationController
   def create
     params.require(:race).permit(:name, :number, :time)
     @card = Card.find(params[:card_id])
+
+    if @card.pools.any?
+      redirect_to card_path(@card), alert: "Cannot add race to card with pools."
+      return
+    end
 
     @race = Race.create(name: params[:race][:name], number: params[:race][:number],
                         time: params[:race][:time], card: @card)

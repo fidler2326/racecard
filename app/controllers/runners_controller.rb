@@ -1,7 +1,9 @@
 class RunnersController < ApplicationController
   def index
-    @race = Race.find(params[:race_id])
-    @runners = @race.runners
+    @runners = Runner.joins(:card).where(card: { race_date: Date.today }).order(:card_id, :number)
+    if @runners.empty?
+      redirect_to root_path, alert: "No cards for today."
+    end
   end
 
   def show
@@ -49,7 +51,10 @@ class RunnersController < ApplicationController
     @runner.scratched = params[:runner][:scratched] == "1" if params[:runner][:scratched].present?
     @runner.finish_position = params[:runner][:finish_position].to_i if params[:runner][:finish_position].present?
     @runner.finished = params[:runner][:finished] == "1" if params[:runner][:finished].present?
-    @runner.odds = params[:runner][:odds].to_f if params[:runner][:odds].present?
+    @runner.odds = params[:runner][:odds] if params[:runner][:odds].present?
+    @runner.form = params[:runner][:form] if params[:runner].key?(:form)
+    @runner.additional_data = params[:runner][:additional_data] if params[:runner].key?(:additional_data)
+    @runner.past_performances = params[:runner][:past_performances] if params[:runner].key?(:past_performances)
 
     if @runner.save
       redirect_to new_race_runner_path(@runner.race), notice: "Runner was successfully updated."

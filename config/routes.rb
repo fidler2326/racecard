@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :cards
   resources :cards do
     resources :races
+    resources :pools
   end
 
   resources :races
