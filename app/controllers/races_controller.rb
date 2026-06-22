@@ -1,64 +1,51 @@
 class RacesController < ApplicationController
 
-  # order races by number in ascending order
+  # TODO: complete the order method, it should:
+  # - get all races for today
+  # - order races by number in ascending order
+  # - if no races today, redirect to root_path with an alert
   def index
-    @races = Race.joins(:card).where(card: { race_date: Date.today }).order(:card_id, :number)
-    if @races.empty?
-      redirect_to root_path, alert: "No cards for today."
-    end
   end
 
+  # TODO: complete the new method, it should:
+  # - get the card from the params
+  # - initialise a new race object
   def new
-    @card = Card.find(params[:card_id])
-    @race = Race.new
   end
 
+  # TODO: complete the create method, it should:
+  # - get card from database using card_id in request params
+  # - check if card has any pools, if it does, redirect to card_path with an alert
+  # - create a new race object using the race params
+  # - save the race object to the database
+  # - redirect to card_path with a notice
   def create
-    params.require(:race).permit(:name, :number, :time)
-    @card = Card.find(params[:card_id])
-
-    if @card.pools.any?
-      redirect_to card_path(@card), alert: "Cannot add race to card with pools."
-      return
-    end
-
-    @race = Race.create(name: params[:race][:name], number: params[:race][:number],
-                        time: params[:race][:time], card: @card)
-    if @race.save
-      @card.races
-      redirect_to card_path(@card), notice: "Race was successfully created."
-    else
-      flash.now[:alert] = @race.errors.full_messages
-      render :new, status: :unprocessable_entity
-    end
   end
 
+  # TODO: get race by id
   def edit
-    @race = Race.find(params[:id])
   end
 
+  # TODO: update race by id
+  # - get race from database using race_id in request params
+  # - update race with race params
+  # - save race to database
+  # - redirect to card_path with a notice
   def update
-    @race = Race.find(params[:id])
-    params.require(:race).permit(:name, :number, :time)
-
-    @race.update(name: params[:race][:name], number: params[:race][:number], time: params[:race][:time])
-    if @race.save
-      redirect_to card_path(@race.card), notice: "Race was successfully updated."
-    else
-      flash.now[:alert] = @race.errors.full_messages
-      render :new, status: :unprocessable_entity
-    end
   end
 
+  # TODO: delete race by id
+  # - get race from database using race_id in request params
+  # - delete race from database
+  # - redirect to card_path with a notice
+  # - deleting a race should be restricted by:
+  #   a. race must not be associated to a past card or current card
+  #   b. deletion of a race should also delete all associated runners
   def destroy
-    @race = Race.find(params[:id])
-    @card = @race.card
-    if @race.delete
-      redirect_to card_path(@card), notice: "Race was successfully deleted."
-    else
-      flash.now[:alert] = @race.errors.full_messages
-    end
   end
 
   private
+
+  # TODO: define a filter method that grabs the associated card from the database, this method should be called
+  # before the request method implementations using before_action
 end

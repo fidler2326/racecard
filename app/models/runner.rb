@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 class Runner < ApplicationRecord
-  belongs_to :card
-  belongs_to :race
-
-  validates :name, presence: true
-  validates :number, numericality: { only_integer: true, allow_nil: false, greater_than: 0 }
-  validates :number, uniqueness: { scope: :race }
-  validates :program_number, uniqueness: { scope: :race }
+  # TODO: add associations that describe a one-to-one association with both the races and cards tables.
+  # TODO: add validations that ensure that the name and number are present.
+  # TODO: add validations that ensure that the number and program_number are unique within the scope of a race.
 end

@@ -1,30 +1,7 @@
+<!-- TODO: add form fields to create a race and submit it -->
 <%= form_for([@card, @race]) do |f| %>
-  <!--
-  TODO:
-    - add validation for each field
-    - add option to create runners at the same time as the race
-        - add validation for the runner fields
-  -->
   <p>
     <%= link_to 'Back', card_races_path(@card) %> |
     Race for <%= @card.name %>
   </p>
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :number %>
-    <%= f.number_field :number, min: 1, step: 1 %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :time %>
-    <%= f.time_field :time %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.submit %>
-  </div>
 <% end %>

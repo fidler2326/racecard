@@ -12,8 +12,8 @@
         <th>Card</th>
       <% end %>
       <th>Number</th>
-      <th>Name</th>
-      <th>Time</th>
+      <!-- TODO: add race name data field  -->
+      <!-- TODO: add race time data field, formatted to HH:MM  -->
       <th class="actions-column">Actions</th>
     </tr>
     </thead>
@@ -25,8 +25,8 @@
           <th><%= race.card.name %></th>
         <% end %>
         <td><%= race.number %></td>
-        <td><%= race.name %></td>
-        <td><%= race.time&.strftime("%H:%M") %></td>
+        <!-- TODO: add race name data field  -->
+        <!-- TODO: add race time data field, formatted to HH:MM  -->
         <td class="actions-column">
           <div class="actions">
             <button type="button"
@@ -36,6 +36,7 @@
               Expand
             </button>
 
+            <!-- TODO: add a button to edit the selected race  -->
             <%= button_to "Edit",
                           edit_race_path(race),
                           method: :get,
@@ -44,6 +45,8 @@
                           new_race_runner_path(race),
                           method: :get,
                           class: "action-button action-button--wide" %>
+
+            <!-- TODO: add a button to delete the selected race -->
             <%= button_to "Delete",
                           race_path(race),
                           method: :delete,

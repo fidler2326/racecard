@@ -1,70 +1,33 @@
 <%= form_for(@runner) do |f| %>
   <div class="runner-edit-form-grid">
     <div class="runner-edit-form-column">
-      <div class="form-group">
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-      </div>
+      <!--
+      TODO: add input boxes for name, number, program_number, trainer, jockey, finish_position, finished, scratched, odds. Take note
+       of the data-type for each field in the database and insure they're accurately captured.
 
-      <div class="form-group">
-        <%= f.label :number %>
-        <%= f.number_field :number, min: 1, step: 1, readonly: true %>
-      </div>
+       TODO (BONUS): add the following fields to the runners table and implement their capture here:
+       - age (int, not-nullable) - add this to the create form
+       - gender (string, nullable, limit 3 chars)
+       - weight (decimal, nullable)
+       - dam (mother) (string, nullable)
+       - sire (father) (string, nullable)
+       - career_earnings (decimal, nullable)
 
-      <div class="form-group">
-        <%= f.label :program_number %>
-        <%= f.text_field :program_number %>
-      </div>
+       This will require a migration to add these fields to the runners table.
+       See the migration file in the db/migrate directory for an example.
 
-      <div class="form-group">
-        <%= f.label :trainer %>
-        <%= f.text_field :trainer %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :jockey %>
-        <%= f.text_field :jockey %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :finish_position %>
-        <%= f.number_field :finish_position, min: 1, step: 1 %>
-      </div>
-
-      <div class="form-group form-group--checkbox">
-        <%= f.label :finished %>
-        <%= f.check_box :finished %>
-      </div>
-
-      <div class="form-group form-group--checkbox">
-        <%= f.label :scratched %>
-        <%= f.check_box :scratched %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :odds %>
-        <%= f.number_field :odds, step: 0.00000001, class: "form-control" %>
-      </div>
+       -->
     </div>
 
+    <!-- TODO: add input boxes for form, additional_data, past_performances, these should be large expandable text boxes -->
     <div class="runner-edit-form-column runner-edit-form-column--wide">
       <div class="form-group">
-        <%= f.label :form %>
-        <%= f.text_field :form, class: "form-control" %>
       </div>
 
       <div class="form-group">
-        <%= f.label :additional_data %>
-        <%= f.text_area :additional_data,
-                        rows: 12,
-                        class: "form-control runner-large-textarea" %>
       </div>
 
       <div class="form-group">
-        <%= f.label :past_performances %>
-        <%= f.text_area :past_performances,
-                        rows: 12,
-                        class: "form-control runner-large-textarea" %>
       </div>
     </div>
   </div>

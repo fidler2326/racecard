@@ -1,6 +1,7 @@
 class Race < ApplicationRecord
-  belongs_to :card
-  has_many :runners
-  validates :name, :time, :number, presence: true
-  validates :number, numericality: { only_integer: true, allow_nil: false, greater_than: 0 }
+  # TODO: add relationship to the Card model that describes a one-to-many association, i.e. a card can have many races
+  # TODO: validate the presence of :name, :time, :number
+  # TODO add validation for uniqueness of race number and card_id combination
+  # TODO: validate a sensible minimum character requirement for the name attribute
+  # TODO: validate a maximum character requirement for the name attribute, matching the varchar(255) limit in the database
 end
