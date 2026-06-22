@@ -5,6 +5,7 @@ class PoolsController < ApplicationController
                .order(
                  Arel.sql("CASE WHEN cards.race_date = CURRENT_DATE THEN 0 ELSE 1 END"),
                  Arel.sql("cards.race_date DESC"),
+                 Arel.sql("pools.status DESC"),
                  Arel.sql("pools.first_race_number ASC"),
                  Arel.sql("pools.total DESC")
                )
@@ -44,9 +45,48 @@ class PoolsController < ApplicationController
   end
 
   def edit
+    @pool = Pool.find(params[:id])
+    @card = @pool.card
+  end
+
+  def destroy
+    @pool = Pool.find(params[:id])
+    @card = @pool.card
+    @pool.destroy
+    redirect_to card_path(@card), notice: "Pool successfully deleted."
   end
 
   def update
+    @pool = Pool.find(params[:id])
+    @card = @pool.card
+
+    if @pool.total != params[:pool][:total].to_d
+      @pool.total = params[:pool][:total].to_d
+    end
+
+    if @pool.carryover != params[:pool][:carryover].to_d
+      @pool.carryover = params[:pool][:carryover].to_d
+    end
+
+    if @pool.guarantee != params[:pool][:guarantee].to_d
+      @pool.guarantee = params[:pool][:guarantee].to_d
+    end
+
+    if params[:pool][:open] == "1"
+      @pool.status = "active"
+    end
+
+    if params[:pool][:close] == "1"
+      @pool.status = "closed"
+    end
+
+    if params[:pool][:suspend] == "1"
+      @pool.status = "suspended"
+    end
+
+    @pool.save!
+
+    redirect_to card_path(@pool.card), notice: "Pool successfully updated."
   end
 
   private

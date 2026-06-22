@@ -16,7 +16,8 @@
       <th>Racer</th>
       <th>Currency</th>
       <th>Status</th>
-      <th>Odds</th>
+      <th>Carryover</th>
+      <th>Guarantee</th>
       <th>Total</th>
       <th class="actions-column">Actions</th>
     </tr>
@@ -33,14 +34,11 @@
         <td><%= pool.first_race_number %></td>
         <td><%= pool.currency %></td>
         <td><%= pool.status %></td>
-        <td><%= pool.odds %></td>
+        <td><%= pool.carryover %></td>
+        <td><%= pool.guarantee %></td>
         <td><%= pool.total %></td>
         <td class="actions-column">
           <div class="actions">
-            <%= button_to "View",
-                          pool_path(pool),
-                          method: :get,
-                          class: "action-button" %>
             <%= button_to "Edit",
                           edit_pool_path(pool),
                           method: :get,
@@ -49,7 +47,7 @@
                           pool_path(pool),
                           method: :delete,
                           form: { onsubmit: "return confirm('Are you sure you want to delete this pool?')" },
-                          class: "action-button" %>
+                          class: "action-button", disabled: !pool.can_delete?  %>
           </div>
         </td>
       </tr>
