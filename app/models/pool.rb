@@ -1,8 +1,9 @@
 class Pool < ApplicationRecord
-  has_many :legs
-  belongs_to :card
-
+  # TODO: add associations that describe a one-to-many association with the legs table.
+  # TODO: add association that describes a many-to-one association with the card table.
   attr_accessor :suspend, :open, :close
+
+  # TODO: add a module that lists the supported Pool statuses
 
   module BetType
     WIN = "WIN".freeze
@@ -15,7 +16,6 @@ class Pool < ApplicationRecord
     PICK6 = "PK6".freeze
     QUADPOT = "QPT".freeze
   end
-
   BET_TYPES = BetType.constants.collect { |c| BetType.const_get c }
 
   def can_delete?

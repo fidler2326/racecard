@@ -1,9 +1,11 @@
 class CardsController < ApplicationController
+
+  # TODO:
+  # - grab all cards
+  # - cards where race_date is today should be first
+  # - card that are not for today should appear after in descending order
   def index
-    @cards = Card.order(
-      Arel.sql("CASE WHEN race_date = CURRENT_DATE THEN 0 ELSE 1 END"),
-      race_date: :desc
-    )
+    @cards = []
   end
 
   def new
@@ -44,29 +46,13 @@ class CardsController < ApplicationController
     end
   end
 
+  # TODO: grab card by id and include pools
+  # grab all unique pool codes associated with the card pools
   def show
-    @card = Card.includes(:pools).find(params[:id])
-    @races = @card.races
-    @pools = @card.pools
-    @unique_pool_codes = @pools.map(&:pool_code).uniq
   end
 
-  # properly delete card to all child records
+  # TODO: delete card and all child records within an all or nothing transaction
   def destroy
-    @card = Card.find(params[:id])
-
-    ActiveRecord::Base.transaction do
-      @card.races.destroy_all
-      @card.pools.destroy_all
-      @card.runners.destroy_all
-      @card.legs.destroy_all
-      @card.destroy!
-    end
-
-    respond_to do |format|
-      format.html { redirect_to cards_path, notice: "Card was successfully deleted." }
-      format.json { head :no_content }
-    end
   end
 
   private
