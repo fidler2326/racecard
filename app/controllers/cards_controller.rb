@@ -5,7 +5,7 @@ class CardsController < ApplicationController
   # - cards where race_date is today should be first
   # - card that are not for today should appear after in descending order
   def index
-    @cards = []
+    @cards = Card.where(race_date: Date.today)
   end
 
   def new
@@ -46,12 +46,15 @@ class CardsController < ApplicationController
     end
   end
 
-  # TODO: grab card by id and include pools
+  # TODO:
+  # grab card by id and include pools
   # grab all unique pool codes associated with the card pools
   def show
+
   end
 
-  # TODO: delete card and all child records within an all or nothing transaction
+  # TODO:
+  # delete card and all child records within an all or nothing transaction
   def destroy
   end
 

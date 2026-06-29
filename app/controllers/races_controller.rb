@@ -5,14 +5,14 @@ class RacesController < ApplicationController
   # - order races by number in ascending order
   # - if no races today, redirect to root_path with an alert
   def index
-    @races = []
+
   end
 
   # TODO: complete the new method, it should:
   # - get the card from the params
   # - initialise a new race object
   def new
-    @race = Race.new
+
   end
 
   # TODO: complete the create method, it should:

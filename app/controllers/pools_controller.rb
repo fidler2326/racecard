@@ -5,8 +5,7 @@ class PoolsController < ApplicationController
   # - order pools by those associated with today's cards first, then in descending order by race_date, status, first_race_number and total
   # - if no pools today, redirect to root_path with an alert
   def index
-    @cards = []
-    @pools = []
+    @pools = Pool.all()
   end
 
   def new
