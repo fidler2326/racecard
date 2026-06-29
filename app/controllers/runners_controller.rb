@@ -5,12 +5,14 @@ class RunnersController < ApplicationControllerRace
   # - order runners by card_id and number in ascending order
   # - if no runners today, redirect to root_path with an alert
   def index
+    @runners = Runner.where(race_date: Date.today).order(card_id: asc).order(number: :asc)
   end
 
   # TODO: complete the show method, it should:
   # - get runner from database using id in request params
   # - get race from database using race_id in request params
   def show
+
   end
 
   # TODO: complete the new method, it should:
