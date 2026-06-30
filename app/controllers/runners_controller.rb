@@ -1,17 +1,22 @@
-class RunnersController < ApplicationControllerRace
+class RunnersController < ApplicationController
 
   # TODO: complete the index method, it should:
-  # - get all runners for today
-  # - order runners by card_id and number in ascending order
-  # - if no runners today, redirect to root_path with an alert
+  # - get all runners for today (done)
+  # - order runners by card_id and number in ascending order (done)
+  # - if no runners today, redirect to root_path with an alert (done)
   def index
-    @runners = Runner.where(race_date: Date.today).order(card_id: asc).order(number: :asc)
+    @runners = Runner.joins(:card).where(card: {race_date: Date.today}).order(:card_id, :number)
+    if @runners.empty?
+      redirect_to root_path
+    end
   end
 
   # TODO: complete the show method, it should:
   # - get runner from database using id in request params
   # - get race from database using race_id in request params
   def show
+    @race = Race.find(params[:race_id])
+    @runner = Runner.find(params[:id])
 
   end
 
@@ -20,6 +25,9 @@ class RunnersController < ApplicationControllerRace
   # - initialise a new runner object
   # - get all runners for the race and order them by number
   def new
+    @race = Race.find(params[:race_id])
+    @runner = new Runner()
+    @runners = Runner.all().order(number: :asc)
   end
 
   # TODO: complete the create method, it should:
@@ -28,6 +36,8 @@ class RunnersController < ApplicationControllerRace
   #   as an all or nothing operation.
   # - redirect to new_race_runner_path with a notice
   def create
+    @race = Race.find(params[:race_id])
+
   end
 
   # TODO: complete the edit method, it should:

@@ -1,8 +1,8 @@
 class CardsController < ApplicationController
 
   # TODO:
-  # - grab all cards
-  # - cards where race_date is today should be first
+  # - grab all cards (done)
+  # - cards where race_date is today should be first (done)
   # - card that are not for today should appear after in descending order
   def index
     @cards = Card.where(race_date: Date.today)
@@ -47,10 +47,13 @@ class CardsController < ApplicationController
   end
 
   # TODO:
-  # grab card by id and include pools
-  # grab all unique pool codes associated with the card pools
+  # grab card by id and include pools (Done)
+  # grab all unique pool codes associated with the card pools (Done)
   def show
-
+    @card = Card.find(params[:id])
+    @races = @card.races
+    @pools = @card.pools
+    @unique_pool_codes = @pools.map(&:pool_code).uniq
   end
 
   # TODO:

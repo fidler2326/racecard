@@ -1,11 +1,14 @@
 class PoolsController < ApplicationController
 
   # TODO: complete the index method, it should:
-  # - get all pools
-  # - order pools by those associated with today's cards first, then in descending order by race_date, status, first_race_number and total
-  # - if no pools today, redirect to root_path with an alert
+  # - get all pools (done)
+  # - order pools by those associated with today's cards first, then in descending order by race_date, status, first_race_number and total (done)
+  # - if no pools today, redirect to root_path with an alert (done)
   def index
-    @pools = Pool.all()
+    @pools = Pool.joins(:card).where(card: {race_date: Date.today}).order(:race_date, :status, :first_race_number, total: :desc)
+    if @pools.empty?
+      redirect_to root_path, notice: "No pools found"
+    end
   end
 
   def new
@@ -28,8 +31,10 @@ class PoolsController < ApplicationController
   def destroy
     @pool = Pool.find(params[:id])
     @card = @pool.card
-    @pool.destroy
-    redirect_to card_path(@card), notice: "Pool successfully deleted."
+    if @pool.can_delete?
+      @pool.destroy
+      redirect_to card_path(@card), notice: "Pool successfully deleted."
+    end
   end
 
   # TODO: complete the update method and redirect the user to the card_path after a successful update
