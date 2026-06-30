@@ -19,6 +19,7 @@ class PoolsController < ApplicationController
   # Create in an all or nothing transaction block and return an alert to the front-end.
   # A leg entry should also be created for each pool, linking the pool to a race and card.
   def create
+
   end
 
   def edit
@@ -26,8 +27,8 @@ class PoolsController < ApplicationController
     @card = @pool.card
   end
 
-  # TODO: add a validation that only permits the deletion of a pool as per the can_delete? method in the Pool model.
-  # Successful deletion should also delete the leg record.
+  # TODO: add a validation that only permits the deletion of a pool as per the can_delete? method in the Pool model. (done)
+  # Successful deletion should also delete the leg record. (done)
   def destroy
     @pool = Pool.find(params[:id])
     @card = @pool.card
