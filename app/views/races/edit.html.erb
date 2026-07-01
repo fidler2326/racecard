@@ -1,8 +1,9 @@
 <div class="page-heading">
   <h1>Edit Race</h1>
   <div>
-    <%= link_to "View All Races", races_path, class: "btn" %>
+    <%= link_to "Back to Card", card_path(@card), class: "btn" %>
   </div>
 </div>
 
-<!-- TODO; render the edit form -->
+<!-- TODO: render the edit form -->
+<%= render "form" %>

@@ -1,8 +1,9 @@
 <div class="page-heading">
   <h1>New Race</h1>
   <div>
-    <%= link_to "View All Races", races_path, class: "btn" %>
+    <%= link_to "Back to Card", card_path(@card), class: "btn" %>
   </div>
 </div>
 
-<!-- TODO: redner the create form -->
+<!-- TODO: render the create form -->
+<%= render "form" %>

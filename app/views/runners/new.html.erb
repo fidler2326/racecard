@@ -14,7 +14,7 @@
   </div>
 
   <div class="races-panel__table">
-    <!-- TODO: render runners/index_table partial, passing in @race_runners variable   -->
+    <%= render "runners/index_table", race_runners: @race_runners %>
   </div>
 </div>
 
@@ -26,5 +26,5 @@
     </div>
   </div>
 
-  <!-- TODO: render the form partial -->
+  <%= render "form" %>
 </div>

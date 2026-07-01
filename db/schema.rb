@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_22_125114) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_01_090742) do
   create_table "cards", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "course", null: false
     t.datetime "created_at", null: false
@@ -52,11 +52,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_22_125114) do
 
   create_table "runners", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.text "additional_data"
+    t.integer "age", default: 0, null: false
     t.integer "card_id"
+    t.decimal "career_earnings", precision: 12, scale: 2
     t.datetime "created_at", null: false
+    t.string "dam"
     t.integer "finish_position"
     t.boolean "finished", default: false
     t.string "form"
+    t.string "gender", limit: 3
     t.string "jockey"
     t.string "name"
     t.integer "number"
@@ -65,7 +69,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_22_125114) do
     t.string "program_number"
     t.integer "race_id"
     t.boolean "scratched", default: false
+    t.string "sire"
     t.string "trainer"
     t.datetime "updated_at", null: false
+    t.decimal "weight", precision: 8, scale: 2
+  end
+
+  create_table "supported_currencies", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
+    t.string "code", null: false
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_supported_currencies_on_code", unique: true
   end
 end
