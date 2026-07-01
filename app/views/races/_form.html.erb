@@ -1,7 +1,27 @@
 <!-- TODO: add form fields to create a race and submit it -->
 <%= form_for([@card, @race]) do |f| %>
   <p>
-    <%= link_to 'Back', card_races_path(@card) %> |
+    <%= link_to 'Back', card_path(@card) %> |
     Race for <%= @card.name %>
   </p>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :number %>
+    <%= f.number_field :number %>
+  </div>
+
+  <!-- BONUS TODO: If you want users to be able to set the time right here during creation -->
+  <div class="form-group">
+    <%= f.label :time, "Time" %>
+    <%= f.time_field :time, class: "form-control" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit "Create Race" %>
+  </div>
 <% end %>

@@ -9,7 +9,9 @@ class Race < ApplicationRecord
   validates :number, numericality: { greater_than_or_equal_to: 1 }
   validates :name, uniqueness: true
   validates :name, length: { maximum: 255}
-  has_many :runners
+  belongs_to :card
+  has_many :runners, dependent: :destroy
+
 
 
 end

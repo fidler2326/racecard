@@ -1,13 +1,13 @@
 <div class="page-heading">
   <h1>Races</h1>
   <div>
-    <% if @card.nil? %>
-    <% else %>
-      <%= link_to "New Race", new_race_path(@card), class: "btn" %>
-  <% end %>
+    <% if @card.present? %>
+      <%= link_to "New Race", new_card_race_path(@card), class: "btn" %>
+    <% end %>
   </div>
 </div>
 
-<!-- TODO: render the runners table -->
+<!-- TODO: render the races table layout -->
 <div id="races">
+  <%= render "index_table" %>
 </div>

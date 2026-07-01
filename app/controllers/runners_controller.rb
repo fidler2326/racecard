@@ -72,18 +72,7 @@ class RunnersController < ApplicationController
     @race = Race.find(params[:race_id])
     @runner = Runner.find(params[:id])
 
-    @runner.program_number = params[:runner][:program_number] if params[:runner][:program_number].present?
-    @runner.trainer = params[:runner][:trainer] if params[:runner][:trainer].present?
-    @runner.jockey = params[:runner][:jockey] if params[:runner][:jockey].present?
-    @runner.scratched = params[:runner][:scratched] == "1" if params[:runner][:scratched].present?
-    @runner.finish_position = params[:runner][:finish_position].to_i if params[:runner][:finish_position].present?
-    @runner.finished = params[:runner][:finished] == "1" if params[:runner][:finished].present?
-    @runner.odds = params[:runner][:odds] if params[:runner][:odds].present?
-    @runner.form = params[:runner][:form] if params[:runner].key?(:form)
-    @runner.additional_data = params[:runner][:additional_data] if params[:runner].key?(:additional_data)
-    @runner.past_performances = params[:runner][:past_performances] if params[:runner].key?(:past_performances)
-
-    if @runner.save
+    if @runner.update(single_runner_params)
       redirect_to new_race_runner_path(@race), notice: "Runner was successfully updated."
     else
       flash.now[:alert] = "Failed to update runner."
@@ -108,12 +97,23 @@ class RunnersController < ApplicationController
   # TODO: define a helper method for extracting runner params from the request (done)
   def runners_params
     params.fetch(:runners, []).map do |runner_params|
-      ActionController::Parameters.new(runner_params).permit(:name, :program_number, :number, :trainer, :jockey)
+      runner_params.permit(
+        :name, :number, :program_number, :trainer, :jockey,
+        :finish_position, :finished, :scratched, :odds,
+        :age, :gender, :weight, :dam, :sire, :career_earnings,
+        :form, :additional_data, :past_performances
+      )
     end
   end
 
   # TODO: define a helper method for extracting a single runner's params from the request (done)
   def single_runner_params
-    params.require(:runner).permit(:number, :name, :card_id)
+    params.require(:runner).permit(
+      :name, :number, :program_number, :trainer, :jockey,
+      :finish_position, :finished, :scratched, :odds,
+      :age, :gender, :weight, :dam, :sire, :career_earnings,
+      :form, :additional_data, :past_performances, :card_id
+    )
   end
 end
+
